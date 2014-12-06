@@ -22,11 +22,17 @@ public class Process {
 
     public void process() {
         Timer timer = new Timer();
-        Job job = new Job();
+        Job job = new Job(inputBuffer,elevator);
         timer.schedule(job, 0, 34);
     }
 
     class Job extends TimerTask {
+        private InputBuffer inputBuffer;
+        private Elevator elevator;
+        public Job(InputBuffer _inputBuffer, Elevator _elevator){
+            inputBuffer=_inputBuffer;
+            elevator=_elevator;
+        }
         private ArrayList<Integer> createTargetFloorList() {
             Elevator.ServiceState serviceState = elevator.getServiceState();
             if (serviceState == Elevator.ServiceState.STOP) {
