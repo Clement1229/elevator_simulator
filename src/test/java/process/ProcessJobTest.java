@@ -15,8 +15,8 @@ import static org.hamcrest.core.Is.is;
 public class ProcessJobTest {
     @Test
     public void testInElevatorSelect1() throws Exception {
-        InputBuffer inputBuffer = InputBuffer.getInstance();
-        Elevator elevator = Elevator.getInstance();
+        InputBuffer inputBuffer = new InputBuffer();
+        Elevator elevator = new Elevator();
         ProcessJob processJob =new ProcessJob(inputBuffer,elevator);
         ArrayList result = new ArrayList();
 
@@ -24,6 +24,6 @@ public class ProcessJobTest {
         ArrayList targetFloor = processJob.createTargetFloorList();
         result.add(1);
 
-        assertThat(targetFloor,is(result));
+        assertThat(targetFloor, is(result));
     }
 }

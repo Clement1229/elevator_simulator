@@ -13,7 +13,7 @@ public class InputBuffer {
     Map<Integer, String> floorSelectionsState;
     List<Integer> floorSelectionStateInElevator;
 
-    private InputBuffer() {
+    public InputBuffer() {
         floorSelectionsState = Collections.synchronizedMap(new HashMap<Integer, String>());
         floorSelectionStateInElevator = Collections.synchronizedList(new ArrayList<Integer>());
     }

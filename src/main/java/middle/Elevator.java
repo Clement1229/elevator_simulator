@@ -32,7 +32,7 @@ public class Elevator {
     private int currentFloor = 8;
 
 
-    private Elevator() {
+    public Elevator() {
         Timer timer = new Timer();
         CheckState checkState = new CheckState();
         timer.schedule(checkState, 0, 34);
