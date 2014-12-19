@@ -17,7 +17,7 @@ class ProcessJob extends TimerTask {
     }
 
     public ArrayList<Integer> createTargetFloorList() {
-        if (isElevatorService()) return null;
+
         Elevator.MoveState moveState = elevator.getMoveState();
         int currentFloor = elevator.getCurrentFloor();
         List<Integer> selectionFloorsInElevator = inputBuffer.getAllSelectionFloorInElevator();
@@ -119,7 +119,9 @@ class ProcessJob extends TimerTask {
 
     @Override
     public void run() {
-        ArrayList<Integer> targetFloors = createTargetFloorList();
+        ArrayList<Integer> targetFloors = null;
+        if (!isElevatorService())
+            targetFloors = createTargetFloorList();
         elevator.setTargetFloors(targetFloors);
     }
 }
