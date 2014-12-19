@@ -24,15 +24,15 @@ public class Elevator {
         return false;
     }
 
-    public boolean isElevatorUp() {
+    public boolean isMoveUp() {
         return currentMoveState == MoveState.UP;
     }
 
-    public boolean isElevatorDown() {
+    public boolean isMoveDown() {
         return currentMoveState == MoveState.DOWN;
     }
 
-    public boolean isElevatorNoMove() {
+    public boolean isNoMove() {
         return currentMoveState == MoveState.NO_MOVE;
     }
 

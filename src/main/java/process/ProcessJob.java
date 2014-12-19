@@ -26,7 +26,7 @@ class ProcessJob extends TimerTask {
         ArrayList<Integer> result = new ArrayList<Integer>();
         List<Integer> selectionFloorOutsideList = null;
 
-        if (elevator.isElevatorUp()) {
+        if (elevator.isMoveUp()) {
             for (int i = 0; i < temp.size(); i++) {
                 int targetFloor = temp.get(i);
                 if (currentFloor <= targetFloor) {
@@ -49,7 +49,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (elevator.isElevatorDown()) {
+        } else if (elevator.isMoveDown()) {
             for (int i = temp.size() - 1; i >= 0; i--) {
                 int targetFloor = temp.get(i);
                 if (currentFloor >= targetFloor) {
@@ -72,7 +72,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (elevator.isElevatorNoMove()) {
+        } else if (elevator.isNoMove()) {
             if (currentFloor == 1) {
                 for (int i = 0; i < temp.size(); i++) {
                     int targetFloor = temp.get(i);
@@ -99,9 +99,9 @@ class ProcessJob extends TimerTask {
 
     private List<Integer> getSelectionFloorOutsideList() {
         List<Integer> selectionFloorOutsideList;
-        if (elevator.isElevatorUp()) {
+        if (elevator.isMoveUp()) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("UP");
-        } else if (elevator.isElevatorDown()) {
+        } else if (elevator.isMoveDown()) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("DOWN");
         }else {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside();

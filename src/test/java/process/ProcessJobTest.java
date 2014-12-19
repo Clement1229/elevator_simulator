@@ -67,8 +67,8 @@ public class ProcessJobTest {
     @Test
     public void testElevatorDown_selectOutsideUPBtn() throws Exception {
         elevator.setCurrentFloor(6);
-
         elevator.setMoveState(Elevator.MoveState.DOWN);
+
 
         inputBuffer.selectUpDown(7,"UP");
         inputBuffer.selectUpDown(5,"UP");
