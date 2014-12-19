@@ -80,5 +80,19 @@ public class ProcessJobTest {
         assertThat(targetFloor.get(0), is(result.get(0)));
     }
 
+    @Test
+    public void testElevatorUP_selectOutsideDOWNBtn() throws Exception {
+        elevator.setCurrentFloor(2);
 
+        elevator.setMoveState(Elevator.MoveState.UP);
+
+        inputBuffer.selectUpDown(7,"DOWN");
+        inputBuffer.selectUpDown(5,"UP");
+        inputBuffer.selectUpDown(4,"DOWN");
+
+        ArrayList targetFloor = processJob.createTargetFloorList();
+        result.add(5);
+
+        assertThat(targetFloor.get(0), is(result.get(0)));
+    }
 }
