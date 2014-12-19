@@ -16,6 +16,14 @@ public class Elevator {
         return currentDoorState;
     }
 
+    public boolean isElevatorService() {
+        ServiceState serviceState = getServiceState();
+        if (serviceState == ServiceState.STOP) {
+            return true;
+        }
+        return false;
+    }
+
 
     public enum DoorState {OPEN, OPENING, CLOSE, CLOSEING}
 

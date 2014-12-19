@@ -97,14 +97,6 @@ class ProcessJob extends TimerTask {
         return result;
     }
 
-    private boolean isElevatorService() {
-        Elevator.ServiceState serviceState = elevator.getServiceState();
-        if (serviceState == Elevator.ServiceState.STOP) {
-            return true;
-        }
-        return false;
-    }
-
     private List<Integer> getSelectionFloorOutsideList(Elevator.MoveState moveState) {
         List<Integer> selectionFloorOutsideList;
         if (moveState == Elevator.MoveState.UP) {
@@ -120,7 +112,7 @@ class ProcessJob extends TimerTask {
     @Override
     public void run() {
         ArrayList<Integer> targetFloors = null;
-        if (!isElevatorService())
+        if (!elevator.isElevatorService())
             targetFloors = createTargetFloorList();
         elevator.setTargetFloors(targetFloors);
     }
