@@ -15,6 +15,7 @@ class ProcessJob extends TimerTask {
         inputBuffer=_inputBuffer;
         elevator=_elevator;
     }
+
     public ArrayList<Integer> createTargetFloorList() {
         Elevator.ServiceState serviceState = elevator.getServiceState();
         if (serviceState == Elevator.ServiceState.STOP) {
@@ -25,13 +26,7 @@ class ProcessJob extends TimerTask {
         List<Integer> selectionFloorsInElevator = inputBuffer.getAllSelectionFloorInElevator();
 
         List<Integer> selectionFloorOutsideList = null;
-        if (moveState == Elevator.MoveState.UP) {
-            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("UP");
-        } else if (moveState == Elevator.MoveState.DOWN) {
-            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("DOWN");
-        }else {
-            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside();
-        }
+        selectionFloorOutsideList = getSelectionFloorOutsideList(moveState);
 
         Set<Integer> set = Collections.synchronizedSet(new HashSet<Integer>());
         set.addAll(selectionFloorsInElevator);
@@ -103,6 +98,18 @@ class ProcessJob extends TimerTask {
         }
 
         return result;
+    }
+
+    private List<Integer> getSelectionFloorOutsideList(Elevator.MoveState moveState) {
+        List<Integer> selectionFloorOutsideList;
+        if (moveState == Elevator.MoveState.UP) {
+            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("UP");
+        } else if (moveState == Elevator.MoveState.DOWN) {
+            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("DOWN");
+        }else {
+            selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside();
+        }
+        return selectionFloorOutsideList;
     }
 
     @Override
