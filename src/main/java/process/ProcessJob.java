@@ -112,7 +112,7 @@ class ProcessJob extends TimerTask {
     @Override
     public void run() {
         ArrayList<Integer> targetFloors = null;
-        if (!elevator.isElevatorService())
+        if (!elevator.isService())
             targetFloors = createTargetFloorList();
         elevator.setTargetFloors(targetFloors);
     }

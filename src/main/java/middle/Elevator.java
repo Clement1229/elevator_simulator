@@ -16,7 +16,7 @@ public class Elevator {
         return currentDoorState;
     }
 
-    public boolean isElevatorService() {
+    public boolean isService() {
         ServiceState serviceState = getServiceState();
         if (serviceState == ServiceState.STOP) {
             return true;
