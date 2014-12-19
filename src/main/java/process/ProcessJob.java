@@ -28,7 +28,7 @@ class ProcessJob extends TimerTask {
         ArrayList<Integer> result = new ArrayList<Integer>();
         List<Integer> selectionFloorOutsideList = null;
 
-        if (moveState == Elevator.MoveState.UP) {
+        if (isElevatorUp(moveState)) {
             for (int i = 0; i < temp.size(); i++) {
                 int targetFloor = temp.get(i);
                 if (currentFloor <= targetFloor) {
@@ -51,7 +51,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (moveState == Elevator.MoveState.DOWN) {
+        } else if (isElevatorDown(moveState)) {
             for (int i = temp.size() - 1; i >= 0; i--) {
                 int targetFloor = temp.get(i);
                 if (currentFloor >= targetFloor) {
@@ -74,7 +74,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (moveState == Elevator.MoveState.NO_MOVE) {
+        } else if (isElevatorNoMove(moveState)) {
             if (currentFloor == 1) {
                 for (int i = 0; i < temp.size(); i++) {
                     int targetFloor = temp.get(i);
@@ -87,8 +87,19 @@ class ProcessJob extends TimerTask {
                 }
             }
         }
-
         return result;
+    }
+
+    private boolean isElevatorUp(Elevator.MoveState moveState) {
+        return moveState == Elevator.MoveState.UP;
+    }
+
+    private boolean isElevatorDown(Elevator.MoveState moveState) {
+        return moveState == Elevator.MoveState.DOWN;
+    }
+
+    private boolean isElevatorNoMove(Elevator.MoveState moveState) {
+        return moveState == Elevator.MoveState.NO_MOVE;
     }
 
     private ArrayList<Integer> getDeDuplicationSelectionFloorList(Elevator.MoveState moveState) {
@@ -102,9 +113,9 @@ class ProcessJob extends TimerTask {
 
     private List<Integer> getSelectionFloorOutsideList(Elevator.MoveState moveState) {
         List<Integer> selectionFloorOutsideList;
-        if (moveState == Elevator.MoveState.UP) {
+        if (isElevatorUp(moveState)) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("UP");
-        } else if (moveState == Elevator.MoveState.DOWN) {
+        } else if (isElevatorDown(moveState)) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("DOWN");
         }else {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside();
