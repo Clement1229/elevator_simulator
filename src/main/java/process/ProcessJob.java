@@ -22,18 +22,19 @@ class ProcessJob extends TimerTask {
         int currentFloor = elevator.getCurrentFloor();
         List<Integer> selectionFloorsInElevator = inputBuffer.getAllSelectionFloorInElevator();
 
-        List<Integer> selectionFloorOutsideList = null;
-        selectionFloorOutsideList = getSelectionFloorOutsideList(moveState);
 
         Set<Integer> set = Collections.synchronizedSet(new HashSet<Integer>());
         set.addAll(selectionFloorsInElevator);
-        if (selectionFloorOutsideList != null) {
-            set.addAll(selectionFloorOutsideList);
+        if (getSelectionFloorOutsideList(moveState) != null) {
+            set.addAll(getSelectionFloorOutsideList(moveState));
         }
 
         ArrayList<Integer> result = new ArrayList<Integer>();
         ArrayList<Integer> temp = new ArrayList<Integer>(set);
         Collections.sort(temp);
+
+        List<Integer> selectionFloorOutsideList = null;
+
         if (moveState == Elevator.MoveState.UP) {
             for (int i = 0; i < temp.size(); i++) {
                 int targetFloor = temp.get(i);
