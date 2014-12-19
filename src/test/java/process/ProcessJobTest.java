@@ -53,4 +53,14 @@ public class ProcessJobTest {
 
         assertThat(targetFloor, is(result));
     }
+
+    @Test
+    public void testInElevatorSelectSameFloor() throws Exception {
+        elevator.setCurrentFloor(8);
+        inputBuffer.selectFloorInElevator(8);
+        ArrayList targetFloor = processJob.createTargetFloorList();
+        result.add(8);
+
+        assertThat(targetFloor,is(result));
+    }
 }
