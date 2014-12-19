@@ -18,17 +18,15 @@ class ProcessJob extends TimerTask {
 
     public ArrayList<Integer> createTargetFloorList() {
 
-        Elevator.MoveState moveState = elevator.getMoveState();
         int currentFloor = elevator.getCurrentFloor();
 
-
-        ArrayList<Integer> temp = getDeDuplicationSelectionFloorList(moveState);
+        ArrayList<Integer> temp = getDeDuplicationSelectionFloorList(elevator.getMoveState());
         Collections.sort(temp);
 
         ArrayList<Integer> result = new ArrayList<Integer>();
         List<Integer> selectionFloorOutsideList = null;
 
-        if (isElevatorUp(moveState)) {
+        if (elevator.isElevatorUp()) {
             for (int i = 0; i < temp.size(); i++) {
                 int targetFloor = temp.get(i);
                 if (currentFloor <= targetFloor) {
@@ -51,7 +49,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (isElevatorDown(moveState)) {
+        } else if (elevator.isElevatorDown()) {
             for (int i = temp.size() - 1; i >= 0; i--) {
                 int targetFloor = temp.get(i);
                 if (currentFloor >= targetFloor) {
@@ -74,7 +72,7 @@ class ProcessJob extends TimerTask {
                     }
                 }
             }
-        } else if (isElevatorNoMove(moveState)) {
+        } else if (elevator.isElevatorNoMove()) {
             if (currentFloor == 1) {
                 for (int i = 0; i < temp.size(); i++) {
                     int targetFloor = temp.get(i);
@@ -90,18 +88,6 @@ class ProcessJob extends TimerTask {
         return result;
     }
 
-    private boolean isElevatorUp(Elevator.MoveState moveState) {
-        return moveState == Elevator.MoveState.UP;
-    }
-
-    private boolean isElevatorDown(Elevator.MoveState moveState) {
-        return moveState == Elevator.MoveState.DOWN;
-    }
-
-    private boolean isElevatorNoMove(Elevator.MoveState moveState) {
-        return moveState == Elevator.MoveState.NO_MOVE;
-    }
-
     private ArrayList<Integer> getDeDuplicationSelectionFloorList(Elevator.MoveState moveState) {
         Set<Integer> set = Collections.synchronizedSet(new HashSet<Integer>());
         set.addAll(inputBuffer.getAllSelectionFloorInElevator());
@@ -113,9 +99,9 @@ class ProcessJob extends TimerTask {
 
     private List<Integer> getSelectionFloorOutsideList(Elevator.MoveState moveState) {
         List<Integer> selectionFloorOutsideList;
-        if (isElevatorUp(moveState)) {
+        if (elevator.isElevatorUp()) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("UP");
-        } else if (isElevatorDown(moveState)) {
+        } else if (elevator.isElevatorDown()) {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside("DOWN");
         }else {
             selectionFloorOutsideList = inputBuffer.getAllSelectionFloorOutside();

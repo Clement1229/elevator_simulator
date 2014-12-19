@@ -24,6 +24,18 @@ public class Elevator {
         return false;
     }
 
+    public boolean isElevatorUp() {
+        return currentMoveState == MoveState.UP;
+    }
+
+    public boolean isElevatorDown() {
+        return currentMoveState == MoveState.DOWN;
+    }
+
+    public boolean isElevatorNoMove() {
+        return currentMoveState == MoveState.NO_MOVE;
+    }
+
 
     public enum DoorState {OPEN, OPENING, CLOSE, CLOSEING}
 
